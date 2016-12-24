@@ -1,8 +1,11 @@
 (function(){
     "use strict";
-    var App = angular.module('Bookmarks',[
-      //dependencies here
-    ]);
-    console.log(App);
-    console.log('Bookmarks module!');
+    angular.module('Bookmarks',[
+        //dependencies here
+    ])
+  
+    .controller('MainController', function($scope){
+        $scope.name = 'Carlos Jaramillo';
+        $scope.categories = ['HTML5', 'Javascript', 'CSS3'];
+    });
 })();
