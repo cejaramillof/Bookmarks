@@ -2,6 +2,7 @@
 <html ng-app="Bookmarks">
   <head>
     <title>Angular JS</title>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
@@ -70,7 +71,7 @@
             <h4 class="modal-title" id="myModalLabel">Bookmark</h4>
           </div>
           <div class="modal-body">
-            <form id="bookmarkForm">
+            <form name="bookmarkForm" id="bookmarkForm">
               <p>Please enther the title and the url for you bookmark, all fields are required.</p>
               <div class="form-group">
                 <label for="category">Category</label>
@@ -81,23 +82,30 @@
                   <select ng-model="bookmark.category" ng-options="value for value in categories" id="category" class="form-control"></select>
                 </div>
               </div>               
-              <div class="form-group">
+              <div class="form-group" ng-class="{'has-error':bookmarkForm.title.$invalid && bookmarkForm.title.$dirty}"> 
                 <label for="title">Title</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="glyphicon glyphicon-bookmark"></i>
                   </div>
-                  <input ng-model="bookmark.title" id="title" class="form-control" type="text" placeholder="Enter the title">
+                  <input ng-model="bookmark.title" ng-required="true" name="title" id="title" class="form-control" type="text" placeholder="Enter the title">
+                  <span ng-if="bookmarkForm.title.$invalid && bookmarkForm.title.$dirty" class="glyphicon glyphicon-remove form-control-feedback"></span>
                 </div>
+                <span ng-if="bookmarkForm.title.$invalid && bookmarkForm.title.$dirty" class="help-block">El título es requerido.</span>
               </div>             
-              <div class="form-group">
+              <div class="form-group" ng-class="{'has-error':bookmarkForm.url.$invalid && bookmarkForm.url.$touched}">
                 <label for="url">URL</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="glyphicon glyphicon-link"></i>
                   </div>
-                  <input ng-model="bookmark.url" id="url" class="form-control" type="url" placeholder="Enter the URL">
+                  <input ng-model="bookmark.url" required minlength="3" maxlength="200" name="url" id="url" class="form-control" type="url" placeholder="Enter the URL">
+                  <span ng-if="bookmarkForm.url.$invalid && bookmarkForm.url.$touched" class="glyphicon glyphicon-remove form-control-feedback"></span>
                 </div>
+              <span ng-if="bookmarkForm.url.$error.required && bookmarkForm.url.$touched" class="help-block">La URL es requerida</span>
+              <span ng-if="bookmarkForm.url.$error.minlength && bookmarkForm.url.$touched" class="help-block">La URL es muy pequeña</span>
+              <span ng-if="bookmarkForm.url.$error.maxlength && bookmarkForm.url.$touched" class="help-block">La URL es muy larga</span>
+              <span ng-if="bookmarkForm.url.$error.url && bookmarkForm.url.$touched" class="help-block">La URL no está en el formto correcto, ej: <strong>http://test.com</strong></span>               
               </div>
             </form>
           </div>
