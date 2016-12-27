@@ -3,10 +3,35 @@
     angular.module('Bookmarks',[
         //dependencies here
     ])
-  
-    .controller('MainController', function($scope){
+    
+    .service('Category',function($http){
+        this.getAll = function(success,failure){
+              //$http.get('http://bookmarks-angular.herokuapp.com/api/categories')
+              $http({
+                  method:'GET',
+                  url:'http://bookmarks-angular.herokuapp.com/api/categories' 
+              }).then(success,failure); 
+        }
+    })
+    
+//    .service('Category',function(){
+//      
+//    })
+//    
+//    .factory('Category',function(){
+//      
+//    })
+//    
+//    .provider('Category',function(){
+//      
+//    })
+    
+    .controller('MainController',function($scope,Category){
         $scope.name = 'Carlos Jaramillo';
-        $scope.categories = ['HTML5', 'JavaScript', 'CSS3', 'Games'];
+        Category.getAll(function(data){
+            $scope.categories = data.data.categories;            
+        });  
+        // $scope.categories = ['HTML5', 'JavaScript', 'CSS3', 'Games'];
         $scope.bookmarks = [
             {id:1, title:'Quizzpot.com', url:'https://quizzpot.com', category: 'JavaScript'},
             {id:2, title:'Html5 Game Devs', url:'https://html5gamedevs.com', category: 'Games'},
