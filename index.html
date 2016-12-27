@@ -41,7 +41,7 @@
                 <!-- content -->
                 <h2>
                   Category: {{currentCategory}}
-                  <a href="#" class="btn btn-primary btn-xs pull-right"><i class="glyphicon glyphicon-plus-sign"></i> New bookmark</a>              
+                  <a href="#" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#bookmarkModal"><i class="glyphicon glyphicon-plus-sign"></i> New bookmark</a>              
                 </h2>
                 <ul>
                   <li ng-repeat="bookmark in bookmarks | filter: {category: currentCategory}">
@@ -58,6 +58,53 @@
           </div>
           <!-- /main -->
           
+        </div>
+      </div>
+    </div>
+    <!-- Bookmark form -->
+    <div class="modal fade" id="bookmarkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"&times;></span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Bookmark</h4>
+          </div>
+          <div class="modal-body">
+            <form id="bookmarkForm">
+              <p>Please enther the title and the url for you bookmark, all fields are required.</p>
+              <div class="form-group">
+                <label for="category">Category</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="glyphicon glyphicon-folder-open"></i>
+                  </div>
+                  <select ng-model="bookmark.category" ng-options="value for value in categories" id="category" class="form-control"></select>
+                </div>
+              </div>               
+              <div class="form-group">
+                <label for="title">Title</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="glyphicon glyphicon-bookmark"></i>
+                  </div>
+                  <input ng-model="bookmark.title" id="title" class="form-control" type="text" placeholder="Enter the title">
+                </div>
+              </div>             
+              <div class="form-group">
+                <label for="url">URL</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="glyphicon glyphicon-link"></i>
+                  </div>
+                  <input ng-model="bookmark.url" id="url" class="form-control" type="url" placeholder="Enter the URL">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button ng-click="save(bookmark)" type="button" class="btn btn-primary">Save changes</button>
+          </div>
         </div>
       </div>
     </div>
