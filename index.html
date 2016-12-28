@@ -48,7 +48,7 @@
                   <li ng-repeat="bookmark in bookmarks | filter:{category: {name: currentCategory.name}}">
                     <p>            
                       <a href="{{bookmark.url}}">{{bookmark.title}}</a>
-                      <i ng-click="remove(bookmark.id)" class="glyphicon glyphicon-trash"></i>
+                      <i ng-click="remove(bookmark)" class="glyphicon glyphicon-trash"></i>
                       <i ng-click="showWindow(bookmark)" class="glyphicon glyphicon-pencil"></i><br />
                       <small>{{bookmark.url}}</small>
                     </p>
@@ -79,7 +79,7 @@
                   <div class="input-group-addon">
                     <i class="glyphicon glyphicon-folder-open"></i>
                   </div>
-                  <select ng-model="bookmark.category" ng-options="obj.name for obj in categories" id="category" class="form-control"></select>
+                  <select ng-model="bookmark.category" ng-options="obj.name for obj in categories track by obj.id" id="category" class="form-control"></select>
                 </div>
               </div>               
               <div class="form-group" ng-class="{'has-error':bookmarkForm.title.$invalid && bookmarkForm.title.$dirty}"> 
