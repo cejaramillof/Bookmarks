@@ -45,7 +45,21 @@
                     model = attrs.ngModel;
               
                 $(element).selectpicker();
-                console.log('My directive');
+                scope.$watch('categories',function(data){
+                    if(data){
+                        $(element)
+                            .find('option')
+                            .remove();
+                        var html = [];
+                        $.each(data, function(index, object) {
+                            html.push('<option value="'+object[valueProperty]+'">');
+                            html.push(object[labelProperty]);
+                            html.push('</option>');
+                        });
+                        $(element).append(html.join(''));
+                        $(element).selectpicker('refresh');
+                    }
+                })
             }
         }
     })
