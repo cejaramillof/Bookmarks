@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html ng-app="Bookmarks">
+  <head>
+    <title>Angular JS</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/app.min.css"/>
+  </head>
+  <body ng-controller="MainController">
+    <div class="wrapper">
+      <!-- Header -->
+      <header class="header header-fixed navbar container-fluid">
+        <div class="row">
+          <div class="brand col-sm-3">
+            <a href="#" class="navbar-brand">
+              <i class="glyphicon glyphicon-heart-empty"></i>
+              <span class="heading-font">Boookmarks App</span>
+            </a>
+          </div>
+        </div>
+      </header>
+      <div class="box">
+        <div class="row">
+          <!-- sidebar -->
+          <div class="column col-sm-3" id="sidebar">
+            <p class="nav-title">
+              Categories
+              <a href="#" class="pull-right"><i class="glyphicon glyphicon-folder-open"></i></a>
+            </p>
+            <ul class="nav">
+              <li ng-repeat="category in categories" ng-class="{active: isCurrentCategory(category)}">
+                <a href="#" ng-click="setCurrentCategory(category)"><i class="glyphicon glyphicon-tag"></i> {{category.name}}</a>
+              </li>
+            </ul>
+          </div>
+          <!-- /sidebar -->
+          
+          <!-- main -->
+          <div class="column col-sm-9" id="main">
+            <div class="padding">
+              <div class="full col-sm-9">
+                <!-- content -->
+                <h2>
+                  Category: {{currentCategory.name}}
+                  <a ng-click="showWindow()" href="#" class="btn btn-primary btn-xs pull-right"><i class="glyphicon glyphicon-plus-sign"></i> New bookmark</a>              
+                </h2>
+                <ul>
+                  <li ng-repeat="bookmark in bookmarks | filter:{category: {name: currentCategory.name}}">
+                    <p>            
+                      <a href="{{bookmark.url}}">{{bookmark.title}}</a>
+                      <i ng-click="remove(bookmark)" class="glyphicon glyphicon-trash"></i>
+                      <i ng-click="showWindow(bookmark)" class="glyphicon glyphicon-pencil"></i><br />
+                      <small>{{bookmark.url}}</small>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- /main -->
+          
+        </div>
+      </div>
+    </div>
+    <!-- Bookmark form -->
+    <div class="modal fade" id="bookmarkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"&times;></span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Bookmark</h4>
+          </div>
+          <div class="modal-body">
+            <form name="bookmarkForm" id="bookmarkForm">
+              <p>Please enther the title and the url for you bookmark, all fields are required.</p>
+              <div class="form-group">
+                <label for="category">Category</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="glyphicon glyphicon-folder-open"></i>
+                  </div>
+                  <select bootstrap-select="categories" select-value="id" select-label="name" select-model="bookmark.category" class="form-control"></select>
+<!--                  <select ng-model="bookmark.category" ng-options="obj.name for obj in categories track by obj.id" id="category" class="form-control"></select>-->
+                </div>
+              </div>               
+              <div class="form-group" ng-class="{'has-error':bookmarkForm.title.$invalid && bookmarkForm.title.$dirty}"> 
+                <label for="title">Title</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="glyphicon glyphicon-bookmark"></i>
+                  </div>
+                  <input ng-model="bookmark.title" ng-required="true" name="title" id="title" class="form-control" type="text" placeholder="Enter the title">
+                  <span ng-if="bookmarkForm.title.$invalid && bookmarkForm.title.$dirty" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                </div>
+                <span ng-if="bookmarkForm.title.$invalid && bookmarkForm.title.$dirty" class="help-block">El título es requerido.</span>
+              </div>             
+              <div class="form-group" ng-class="{'has-error':bookmarkForm.url.$invalid && bookmarkForm.url.$touched}">
+                <label for="url">URL</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="glyphicon glyphicon-link"></i>
+                  </div>
+                  <input ng-model="bookmark.url" required minlength="3" maxlength="200" name="url" id="url" class="form-control" type="url" placeholder="Enter the URL">
+                  <span ng-if="bookmarkForm.url.$invalid && bookmarkForm.url.$touched" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                </div>
+              <span ng-if="bookmarkForm.url.$error.required && bookmarkForm.url.$touched" class="help-block">La URL es requerida</span>
+              <span ng-if="bookmarkForm.url.$error.minlength && bookmarkForm.url.$touched" class="help-block">La URL es muy pequeña</span>
+              <span ng-if="bookmarkForm.url.$error.maxlength && bookmarkForm.url.$touched" class="help-block">La URL es muy larga</span>
+              <span ng-if="bookmarkForm.url.$error.url && bookmarkForm.url.$touched" class="help-block">La URL no está en el formto correcto, ej: <strong>http://test.com</strong></span>               
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button ng-click="save(bookmark)" type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-resource.min.js"></script>
+  <script src="js/app.min.js"></script>
+</html>

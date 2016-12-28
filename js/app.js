@@ -17,7 +17,7 @@
 //      
 //    })    
     
-    .service('Category',function($http){
+    .service('Category',['$http',function($http){
         this.getAll = function(success,failure){
               //$http.get('http://bookmarks-angular.herokuapp.com/api/categories')
               $http({
@@ -25,17 +25,17 @@
                   url:'http://bookmarks-angular.herokuapp.com/api/categories' 
               }).then(success,failure); 
         }
-    })
+    }])
     
-    .factory('Bookmark', function($resource){
+    .factory('Bookmark',['$resource',function($resource){
         return $resource('http://bookmarks-angular.herokuapp.com/api/bookmarks/:id',{
             id : '@id'
         },{
             update : {method:'PUT'}
         });
-    })
+    }])
     
-    .directive('bootstrapSelect',function($parse){
+    .directive('bootstrapSelect',['$parse',function($parse){
         return {
             link: function (scope, element, attrs) {
                 var collection = attrs.bootstrapSelect,
@@ -82,9 +82,9 @@
                 })
             }
         }
-    })
+    }])
     
-    .controller('MainController',function($scope,Category,Bookmark){
+    .controller('MainController',['$scope','Category','Bookmark',function($scope,Category,Bookmark){
         $scope.name = 'Carlos Jaramillo';
         Category.getAll(function(data){
             $scope.categories = data.data.categories;
@@ -142,5 +142,5 @@
                 }
             });              
         }
-    });
+    }]);
 })();

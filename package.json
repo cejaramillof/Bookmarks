@@ -1,0 +1,31 @@
+{
+  "name": "bookmarks",
+  "version": "0.0.1",
+  "description": "App sencilla para administrar nuestros sitios favoritos",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cejaramillof/Bookmarks.git"
+  },
+  "keywords": [
+    "Angular",
+    "AngularJS",
+    "HTML5",
+    "Bootstrap",
+    "jQuery",
+    "CSS3",
+    "Bookmarks"
+  ],
+  "author": "Carlos Jaramillo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cejaramillof/Bookmarks/issues"
+  },
+  "homepage": "https://github.com/cejaramillof/Bookmarks#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1"
+  }
+}
