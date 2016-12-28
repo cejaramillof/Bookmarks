@@ -28,8 +28,8 @@
               <a href="#" class="pull-right"><i class="glyphicon glyphicon-folder-open"></i></a>
             </p>
             <ul class="nav">
-              <li ng-repeat="category in categories" ng-class="{active: isCurrentCategory(category.name)}">
-                <a href="#" ng-click="setCurrentCategory(category.name)"><i class="glyphicon glyphicon-tag"></i> {{category.name}}</a>
+              <li ng-repeat="category in categories" ng-class="{active: isCurrentCategory(category)}">
+                <a href="#" ng-click="setCurrentCategory(category)"><i class="glyphicon glyphicon-tag"></i> {{category.name}}</a>
               </li>
             </ul>
           </div>
@@ -41,12 +41,12 @@
               <div class="full col-sm-9">
                 <!-- content -->
                 <h2>
-                  Category: {{currentCategory}}
+                  Category: {{currentCategory.name}}
                   <a ng-click="showWindow()" href="#" class="btn btn-primary btn-xs pull-right"><i class="glyphicon glyphicon-plus-sign"></i> New bookmark</a>              
                 </h2>
                 <ul>
-                  <li ng-repeat="bookmark in bookmarks | filter: {category: currentCategory}">
-                    <p>
+                  <li ng-repeat="bookmark in bookmarks | filter:{category: {name: currentCategory.name}}">
+                    <p>            
                       <a href="{{bookmark.url}}">{{bookmark.title}}</a>
                       <i ng-click="remove(bookmark.id)" class="glyphicon glyphicon-trash"></i>
                       <i ng-click="showWindow(bookmark)" class="glyphicon glyphicon-pencil"></i><br />
@@ -118,7 +118,8 @@
     </div>
   </body>
   <script type="text/javascript" src="//code.jquery.com/jquery-3.1.1.min.js"></script>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>  
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-resource.min.js"></script>  
   <script type="text/javascript" src="js/app.js"></script>
 </html>
