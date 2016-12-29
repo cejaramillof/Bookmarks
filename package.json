@@ -2,7 +2,7 @@
   "name": "bookmarks",
   "version": "1.0.0",
   "description": "App sencilla para administrar nuestros sitios favoritos",
-  "main": "index.html",
+  "main": "./build/index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

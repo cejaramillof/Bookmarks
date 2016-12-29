@@ -1,7 +1,7 @@
 {
   "name": "Bookmarks",
   "description": "App sencilla para administrar nuestros sitios favoritos",
-  "main": "index.html",
+  "main": "./build/index.html",
   "authors": [
     "Carlos Jaramillo"
   ],
