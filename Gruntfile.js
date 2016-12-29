@@ -10,7 +10,11 @@ module.exports = function (grunt) {
             js: {
                 src: [
                     // 'lib/*' (Todas las librerias del proyecto)
-                    'js/bootstrap-select.min.js',
+                    './bower_components/jquery/dist/jquery.js',
+                    './bower_components/bootstrap/dist/js/bootstrap.js',
+                    './bower_components/angular/angular.js',
+                    './bower_components/angular-resource/angular-resource.js',
+                    './bower_components/bootstrap-select/dist/js/bootstrap-select.js',
                     'js/app.js'                    
                 ],
                 dest: 'build/js/app.js'
@@ -18,7 +22,11 @@ module.exports = function (grunt) {
         },
         cssmin: {
             css: {
-                src: 'build/css/app.css',
+                src: [
+                    './bower_components/bootstrap/dist/css/bootstrap.css',
+                    './bower_components/bootstrap-select/dist/css/bootstrap-select.css',
+                    'build/css/app.css'
+                ],
                 dest: 'build/css/app.min.css'
             }
         },
@@ -35,6 +43,15 @@ module.exports = function (grunt) {
                     'build/index.html' : 'index.html'
                 }
             }
+        },
+        copy: {
+            fonts: {
+                expand: true,
+                src: './bower_components/bootstrap/dist/fonts/**',
+                dest: 'build/fonts/',
+                flatten: true,
+                filter: 'isFile'
+            }
         }
     });
   
@@ -42,8 +59,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-processhtml');
   
     //Default task(s).
-    grunt.registerTask('default', ['concat:css','concat:js','cssmin','uglify','processhtml']);
+    grunt.registerTask('default', ['concat:css','concat:js','cssmin','copy:fonts','uglify','processhtml']);
 };

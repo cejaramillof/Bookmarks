@@ -1,0 +1,33 @@
+{
+  "name": "Bookmarks",
+  "description": "App sencilla para administrar nuestros sitios favoritos",
+  "main": "index.html",
+  "authors": [
+    "Carlos Jaramillo"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "Angular",
+    "AngularJS",
+    "HTML5",
+    "Bootstrap",
+    "jQuery",
+    "CSS3",
+    "Bookmarks"
+  ],
+  "homepage": "https://github.com/cejaramillof/Bookmarks",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+      "jquery": "3.1.1",
+      "angular": "1.6.1",
+      "angular-resource": "1.6.1",
+      "bootstrap": "3.3.7",
+      "bootstrap-select": "1.12.1"
+  }
+}
